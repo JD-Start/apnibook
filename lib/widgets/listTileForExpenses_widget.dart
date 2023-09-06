@@ -29,13 +29,15 @@ class _ListTileForExpenses_widgetState
       title: Text(
         widget.name,
         style: const TextStyle(
-          fontSize: 14,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
       ),
       subtitle: Text(
         widget.phoneNumber,
         style: const TextStyle(
-          fontSize: 14,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

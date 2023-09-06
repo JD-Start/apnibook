@@ -331,7 +331,7 @@ class _ClientDetails_PageState extends State<ClientDetails_Page> {
                       cells: [
                         DataCell(
                           Text(
-                            'text',
+                            '13 feb 2008',
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -349,7 +349,7 @@ class _ClientDetails_PageState extends State<ClientDetails_Page> {
                     DataRow(
                       cells: [
                         DataCell(
-                          Text('8 jul 2022'),
+                          Text('8 jul 2011'),
                         ),
                         DataCell(
                           Text('658'),
@@ -362,13 +362,39 @@ class _ClientDetails_PageState extends State<ClientDetails_Page> {
                     DataRow(
                       cells: [
                         DataCell(
-                          Text('27 dec 2023'),
+                          Text('27 dec 2015'),
                         ),
                         DataCell(
                           Text('0'),
                         ),
                         DataCell(
                           Text('10000'),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: [
+                        DataCell(
+                          Text('18 jul  2017'),
+                        ),
+                        DataCell(
+                          Text('4000'),
+                        ),
+                        DataCell(
+                          Text('0'),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: [
+                        DataCell(
+                          Text('3 aug 2019'),
+                        ),
+                        DataCell(
+                          Text('0'),
+                        ),
+                        DataCell(
+                          Text('7500'),
                         ),
                       ],
                     ),

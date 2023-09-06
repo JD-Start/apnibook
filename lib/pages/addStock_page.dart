@@ -69,10 +69,15 @@ class _AddStock_PageState extends State<AddStock_Page> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      FirebaseServices()
-                          .addNewStock(stockName.text, stockAmount.text);
-                      DisplaySnackBar(
-                          context, 'Stock added', Colors.green.shade300);
+                      if (stockName.text != '' && stockAmount.text != '') {
+                        FirebaseServices()
+                            .addNewStock(stockName.text, stockAmount.text);
+                        DisplaySnackBar(
+                            context, 'Stock added', Colors.green.shade300);
+                      } else {
+                        DisplaySnackBar(context, 'Please fill all details',
+                            Colors.red.shade300);
+                      }
                     },
                     style: ButtonStyle(
                       elevation: const MaterialStatePropertyAll(8),

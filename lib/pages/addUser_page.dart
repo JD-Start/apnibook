@@ -123,7 +123,7 @@ class _AddUser_PageState extends State<AddUser_Page> {
                   elevation: const MaterialStatePropertyAll(8),
                   backgroundColor:
                       MaterialStatePropertyAll(Colors.blue.shade300),
-                  fixedSize: MaterialStateProperty.all(const Size(220, 30)),
+                  fixedSize: MaterialStateProperty.all(const Size(240, 30)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -156,24 +156,29 @@ class _AddUser_PageState extends State<AddUser_Page> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      FirebaseServices().addNewUser(
-                          clientName.text != '' ? clientName.text : name,
-                          clientPhoneNumber.text != ''
-                              ? clientPhoneNumber.text
-                              : phone,
-                          amountPaid: amountPaid.text != ''
-                              ? amountPaid.text
-                              : camountPaid,
-                          amountReceived: amountReceived.text != ''
-                              ? amountReceived.text
-                              : camountReceived,
-                          amountWillGet: amountPaid.text != ''
-                              ? (int.parse(amountPaid.text) -
-                                      int.parse(amountReceived.text))
-                                  .toString()
-                              : amountWillGet);
-                      DisplaySnackBar(
-                          context, 'Client added', Colors.green.shade300);
+                      if (clientName.text != '' && amountPaid.text != '') {
+                        FirebaseServices().addNewUser(
+                            clientName.text != '' ? clientName.text : name,
+                            clientPhoneNumber.text != ''
+                                ? clientPhoneNumber.text
+                                : phone,
+                            amountPaid: amountPaid.text != ''
+                                ? amountPaid.text
+                                : camountPaid,
+                            amountReceived: amountReceived.text != ''
+                                ? amountReceived.text
+                                : camountReceived,
+                            amountWillGet: amountPaid.text != ''
+                                ? (int.parse(amountPaid.text) -
+                                        int.parse(amountReceived.text))
+                                    .toString()
+                                : amountWillGet);
+                        DisplaySnackBar(
+                            context, 'Client added', Colors.green.shade300);
+                      } else {
+                        DisplaySnackBar(context, 'Please fill  details',
+                            Colors.red.shade300);
+                      }
                     },
                     style: ButtonStyle(
                       elevation: const MaterialStatePropertyAll(8),

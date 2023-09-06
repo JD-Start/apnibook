@@ -86,6 +86,7 @@ class Home_Page extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          tooltip: 'Help',
           onPressed: () {
             Navigator.push(
                 context,

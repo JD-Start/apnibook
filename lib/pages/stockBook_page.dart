@@ -21,6 +21,7 @@ class _StockBook_PageState extends State<StockBook_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+          tooltip: 'Add new Stock',
           onPressed: () {
             Navigator.push(
                 context,

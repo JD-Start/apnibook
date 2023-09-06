@@ -19,6 +19,7 @@ class _ClientBook_PageState extends State<ClientBook_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Add new Client',
         onPressed: () {
           Navigator.push(
               context,
