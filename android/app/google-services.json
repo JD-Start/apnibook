@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "374106020292",
+    "project_id": "apnibook-de300",
+    "storage_bucket": "apnibook-de300.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374106020292:android:552cd7338d9dbd4d752c91",
+        "android_client_info": {
+          "package_name": "com.example.apnibook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374106020292-k32f1tq2aaoinfng3ac2alu91b7jvak9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcBTLFBz0tBCBHEoPxWARJRFz4bU8DIqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374106020292-k32f1tq2aaoinfng3ac2alu91b7jvak9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
