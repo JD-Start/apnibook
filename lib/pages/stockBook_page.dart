@@ -16,7 +16,21 @@ class StockBook_Page extends StatefulWidget {
 
 class _StockBook_PageState extends State<StockBook_Page> {
   @override
+  void initState() {
+    super.initState();
+    getStocksCount();
+  }
+
   int itemCount = 0;
+  getStocksCount() async {
+    QuerySnapshot<Map<String, dynamic>> temp =
+        await FirebaseFirestore.instance.collection('stocks').get();
+    int datalen = temp.docs.length;
+    setState(() {
+      itemCount = datalen;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,10 +72,6 @@ class _StockBook_PageState extends State<StockBook_Page> {
               stream:
                   FirebaseFirestore.instance.collection('stocks').snapshots(),
               builder: (context, snapshot) {
-                // itemCount = FirebaseFirestore.instance
-                //     .collection('stocks')
-                //     .snapshots()
-                //     .length;
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
@@ -70,7 +80,7 @@ class _StockBook_PageState extends State<StockBook_Page> {
                 return Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: GridView.builder(
-                      itemCount: 5,
+                      itemCount: itemCount,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -97,39 +107,43 @@ class _StockBook_PageState extends State<StockBook_Page> {
                                       ),
                                     ),
                                     actions: [
-                                      CupertinoDialogAction(
-                                        child: InkWell(
-                                          onTap: () {
-                                            print(snapshot.data!.docs[index]
-                                                .data()['sId']);
-                                            FirebaseServices().removeStock(
-                                                snapshot.data!.docs[index]
-                                                    .data()['sId']);
-                                            DisplaySnackBar(
-                                                context,
-                                                'Stock deleted',
-                                                Colors.red.shade300);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text(
-                                            'Yes',
-                                            style: TextStyle(
-                                              fontSize: 14,
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                FirebaseServices().removeStock(
+                                                    snapshot.data!.docs[index]
+                                                        .data()['sId']);
+                                                DisplaySnackBar(
+                                                    context,
+                                                    'Client deleted',
+                                                    Colors.red.shade300);
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Yes',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const CupertinoDialogAction(
-                                          child: Text(
-                                            'No',
-                                            style: TextStyle(
-                                              fontSize: 14,
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: const Text(
+                                                'No',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -138,6 +152,7 @@ class _StockBook_PageState extends State<StockBook_Page> {
                               );
                             },
                             child: ShowStock_widget(
+                              sid: snapshot.data!.docs[index].data()['sId'],
                               text: snapshot.data!.docs[index]
                                   .data()['stockName'],
                               stockCount: snapshot.data!.docs[index]

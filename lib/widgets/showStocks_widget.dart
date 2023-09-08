@@ -1,10 +1,16 @@
+import 'package:apnibook/utils.dart';
 import 'package:flutter/material.dart';
 
 class ShowStock_widget extends StatelessWidget {
   String text;
   String stockCount;
+  String sid;
 
-  ShowStock_widget({super.key, required this.text, required this.stockCount});
+  ShowStock_widget(
+      {super.key,
+      required this.text,
+      required this.stockCount,
+      required this.sid});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +19,11 @@ class ShowStock_widget extends StatelessWidget {
         height: 150,
         width: 150,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.green, width: 2)),
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: shadow,
+          border: Border.all(color: Colors.green, width: 1.8),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -66,65 +66,6 @@ class _ClientBook_PageState extends State<ClientBook_Page> {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onLongPress: () {
-                    showDialog(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text(
-                            'Client deletion',
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                          content: const Text(
-                            'Are you sure want to delete this Client?',
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                          actions: [
-                            CupertinoDialogAction(
-                              child: InkWell(
-                                onTap: () {
-                                  print(
-                                      snapshot.data!.docs[index].data()['cid']);
-                                  FirebaseServices().removeClient(
-                                      snapshot.data!.docs[index].data()['cid']);
-                                  DisplaySnackBar(context, 'Client deleted',
-                                      Colors.red.shade300);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text(
-                                  'Yes',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: const CupertinoDialogAction(
-                                child: Text(
-                                  'No',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-
-                    // FirebaseServices()
-                    //     .removeClient(snapshot.data!.docs[index].data()['cid']);
-                  },
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -139,7 +80,8 @@ class _ClientBook_PageState extends State<ClientBook_Page> {
                     child: ListTileForExpenses_widget(
                         name: snapshot.data!.docs[index].data()['name'],
                         phoneNumber:
-                            snapshot.data!.docs[index].data()['phoneNumber']),
+                            snapshot.data!.docs[index].data()['phoneNumber'],
+                        cid: snapshot.data!.docs[index].data()['cid']),
                   ),
                 );
               },

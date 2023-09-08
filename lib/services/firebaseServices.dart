@@ -8,9 +8,9 @@ class FirebaseServices {
 
 //*:add new user to firebase
   Future<String> addNewUser(String name, String phone,
-      {String amountPaid = '',
-      String amountReceived = '',
-      String amountWillGet = ''}) async {
+      {String amountPaid = '0',
+      String amountReceived = '0',
+      String amountWillGet = '0'}) async {
     String response = '';
     try {
       String clientId = const Uuid().v1();
@@ -80,17 +80,18 @@ class FirebaseServices {
     String response = '';
     try {
       String tid = const Uuid().v1();
-      firesore
+      await firesore
           .collection('clients')
           .doc(cid)
           .collection('transactions')
           .doc(tid)
-          .set({'dateTime': time, 'paid': amount, 'received': ''});
+          .set({'dateTime': time, 'paid': amount, 'received': '0'});
       response = 'Payement done Successfully';
     } catch (err) {
       print(err.toString());
     }
     print(response);
+    calculatePaidChanges(cid, amount);
     return response;
   }
 
@@ -99,17 +100,78 @@ class FirebaseServices {
     String response = '';
     try {
       String tid = const Uuid().v1();
-      firesore
+      await firesore
           .collection('clients')
           .doc(cid)
           .collection('transactions')
           .doc(tid)
-          .set({'dateTime': time, 'paid': '', 'received': amount});
+          .set({'dateTime': time, 'paid': '0', 'received': amount});
       response = 'Payement requested Successfully';
     } catch (err) {
       print(err.toString());
     }
     print(response);
+    calculateReceivedChanges(cid, amount);
     return response;
+  }
+
+  Future<void> calculatePaidChanges(String cid, String amount) async {
+    DocumentSnapshot oldData =
+        await firesore.collection('clients').doc(cid).get();
+    var temp = oldData.data() as Map<String, dynamic>;
+
+    String newPaidEntry =
+        (int.parse(amount) + int.parse(temp['amountPaid'])).toString();
+    await firesore
+        .collection('clients')
+        .doc(cid)
+        .update({'amountPaid': newPaidEntry});
+    await calculateAmountPanding(cid);
+    print('Amount to be add: $amount');
+    print('newPaidEntry: $newPaidEntry');
+    return;
+  }
+
+  Future<void> calculateReceivedChanges(String cid, String amount) async {
+    DocumentSnapshot oldData =
+        await firesore.collection('clients').doc(cid).get();
+    var temp = oldData.data() as Map<String, dynamic>;
+
+    String newReceivedEntry =
+        (int.parse(amount) + int.parse(temp['amountReceived'])).toString();
+    await firesore
+        .collection('clients')
+        .doc(cid)
+        .update({'amountReceived': newReceivedEntry});
+    await calculateAmountPanding(cid);
+    print('Amount to be received: $amount');
+    print('newReceivedEntry: $newReceivedEntry');
+    return;
+  }
+
+  Future<void> calculateAmountPanding(String cid) async {
+    DocumentSnapshot data_ =
+        await firesore.collection('clients').doc(cid).get();
+    var temp = data_.data() as Map<String, dynamic>;
+    String newAmountPandingEntry =
+        (int.parse(temp['amountReceived']) - int.parse(temp['amountPaid']))
+            .toString();
+    await firesore
+        .collection('clients')
+        .doc(cid)
+        .update({'amountWillGet': newAmountPandingEntry});
+    print('newAmountPandingEntry: $newAmountPandingEntry');
+  }
+
+  Future<List> refreshClientInfo(String cid) async {
+    List newDataList = [];
+    DocumentSnapshot data =
+        await FirebaseFirestore.instance.collection('clients').doc(cid).get();
+    var temp = data.data() as Map<String, dynamic>;
+    newDataList.add(temp['amountPaid']);
+    newDataList.add(temp['amountReceived']);
+    newDataList.add(temp['amountWillGet']);
+    print('newDataList: $newDataList');
+    return newDataList;
   }
 }
