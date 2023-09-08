@@ -71,72 +71,72 @@ class _AddUser_PageState extends State<AddUser_Page> {
               const SizedBox(
                 height: 7,
               ),
-              TextFormField(
-                controller: amountPaid,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    // Icons.outbox_rounded,
-                    Icons.file_upload_outlined,
-                    size: 24,
-                  ),
-                  labelText: 'Amount Paid till now',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade300),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 7,
-              ),
-              TextFormField(
-                controller: amountReceived,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Amount Received till now',
-                  prefixIcon: const Icon(
-                    // Icons.install_mobile_rounded,
-                    Icons.file_download_outlined,
-                    size: 24,
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade300),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    name = clientName.text;
-                    phone = clientPhoneNumber.text;
-                    camountPaid = amountPaid.text;
-                    camountReceived = amountReceived.text;
-                    amountWillGet = (int.parse(amountPaid.text) -
-                            int.parse(amountReceived.text))
-                        .toString();
-                  });
-                },
-                style: ButtonStyle(
-                  elevation: const MaterialStatePropertyAll(8),
-                  backgroundColor:
-                      MaterialStatePropertyAll(Colors.blue.shade300),
-                  fixedSize: MaterialStateProperty.all(const Size(220, 30)),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  'Calculate amount you will get',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ),
+              // TextFormField(
+              //   controller: amountPaid,
+              //   keyboardType: TextInputType.number,
+              //   decoration: InputDecoration(
+              //     prefixIcon: const Icon(
+              //       // Icons.outbox_rounded,
+              //       Icons.file_upload_outlined,
+              //       size: 24,
+              //     ),
+              //     labelText: 'Amount Paid till now',
+              //     border: OutlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.blue.shade300),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 7,
+              // ),
+              // TextFormField(
+              //   controller: amountReceived,
+              //   keyboardType: TextInputType.number,
+              //   decoration: InputDecoration(
+              //     labelText: 'Amount Received till now',
+              //     prefixIcon: const Icon(
+              //       // Icons.install_mobile_rounded,
+              //       Icons.file_download_outlined,
+              //       size: 24,
+              //     ),
+              //     border: OutlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.blue.shade300),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     setState(() {
+              //       name = clientName.text;
+              //       phone = clientPhoneNumber.text;
+              //       camountPaid = amountPaid.text;
+              //       camountReceived = amountReceived.text;
+              //       amountWillGet = (int.parse(amountPaid.text) -
+              //               int.parse(amountReceived.text))
+              //           .toString();
+              //     });
+              //   },
+              //   style: ButtonStyle(
+              //     elevation: const MaterialStatePropertyAll(8),
+              //     backgroundColor:
+              //         MaterialStatePropertyAll(Colors.blue.shade300),
+              //     fixedSize: MaterialStateProperty.all(const Size(240, 30)),
+              //     shape: MaterialStateProperty.all(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(8),
+              //       ),
+              //     ),
+              //   ),
+              //   child: const Text(
+              //     'Calculate amount you will get',
+              //     style: TextStyle(
+              //       fontSize: 14,
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -156,24 +156,32 @@ class _AddUser_PageState extends State<AddUser_Page> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      FirebaseServices().addNewUser(
-                          clientName.text != '' ? clientName.text : name,
-                          clientPhoneNumber.text != ''
-                              ? clientPhoneNumber.text
-                              : phone,
-                          amountPaid: amountPaid.text != ''
-                              ? amountPaid.text
-                              : camountPaid,
-                          amountReceived: amountReceived.text != ''
-                              ? amountReceived.text
-                              : camountReceived,
-                          amountWillGet: amountPaid.text != ''
-                              ? (int.parse(amountPaid.text) -
-                                      int.parse(amountReceived.text))
-                                  .toString()
-                              : amountWillGet);
-                      DisplaySnackBar(
-                          context, 'Client added', Colors.green.shade300);
+                      if (clientName.text != '' &&
+                          clientPhoneNumber.text != '') {
+                        FirebaseServices().addNewUser(
+                            clientName.text, clientPhoneNumber.text
+                            // clientName.text != '' ? clientName.text : name,
+                            // clientPhoneNumber.text != ''
+                            //     ? clientPhoneNumber.text
+                            //     : phone,
+                            // amountPaid: amountPaid.text != ''
+                            //     ? amountPaid.text
+                            //     : camountPaid,
+                            // amountReceived: amountReceived.text != ''
+                            //     ? amountReceived.text
+                            //     : camountReceived,
+                            // amountWillGet: amountPaid.text != ''
+                            //     ? (int.parse(amountPaid.text) -
+                            //             int.parse(amountReceived.text))
+                            //         .toString()
+                            //     : amountWillGet,
+                            );
+                        DisplaySnackBar(
+                            context, 'Client added', Colors.green.shade300);
+                      } else {
+                        DisplaySnackBar(context, 'Please fill  details',
+                            Colors.red.shade300);
+                      }
                     },
                     style: ButtonStyle(
                       elevation: const MaterialStatePropertyAll(8),

@@ -3,6 +3,7 @@ import 'package:apnibook/pages/clientBook_page.dart';
 import 'package:apnibook/pages/expenses_page.dart';
 import 'package:apnibook/pages/help_page.dart';
 import 'package:apnibook/pages/stockBook_page.dart';
+import 'package:apnibook/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,20 +20,10 @@ class Home_Page extends StatelessWidget {
         height: 135,
         width: 135,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade500,
-                blurRadius: 10,
-                spreadRadius: 3,
-                offset: const Offset(4, 4)),
-            const BoxShadow(
-                color: Colors.white,
-                blurRadius: 10,
-                spreadRadius: 3,
-                offset: Offset(-4, -4)),
-          ],
-          border: Border.all(color: Colors.green, width: 2.5),
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: shadow,
+          border: Border.all(color: Colors.green, width: 1.8),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -86,6 +77,7 @@ class Home_Page extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          tooltip: 'Help',
           onPressed: () {
             Navigator.push(
                 context,
